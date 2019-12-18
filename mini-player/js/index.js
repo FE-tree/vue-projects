@@ -8,106 +8,28 @@ new Vue({
             duration: null,
             currentTime: null,
             isTimerPlaying: false,
-            tracks: [{
-                    name: "How Do You Do",
-                    singer: "Befour",
-                    cover: "./img/1.jpg",
-                    source: "./mp3/1.mp3",
-                    url: "###",
-                    favorited: false
-                },
-                {
-                    name: "Dance now",
-                    singer: "Brothers",
-                    cover: "./img/2.jpg",
-                    source: "./mp3/2.mp3",
-                    url: "###",
-                    favorited: true
-                },
-                {
-                    name: "火花",
-                    singer: "高耀太",
-                    cover: "./img/3.jpg",
-                    source: "./mp3/3.mp3",
-                    url: "###",
-                    favorited: false
-                },
-                {
-                    name: "순정 (纯情)",
-                    singer: "코요태 (高耀太)",
-                    cover: "./img/4.jpg",
-                    source: "./mp3/4.mp3",
-                    url: "###",
-                    favorited: false
-                },
-                {
-                    name: "Smile.DK",
-                    singer: "Kissy, Kissy",
-                    cover: "./img/5.jpg",
-                    source: "./mp3/5.mp3",
-                    url: "###",
-                    favorited: true
-                },
-                {
-                    name: "Mr.Dj (Radio Edit)",
-                    singer: "DJ Hyo",
-                    cover: "./img/6.jpg",
-                    source: "./mp3/6.mp3",
-                    url: "###",
-                    favorited: false
-                },
-                {
-                    name: "My First Kiss",
-                    singer: "3OH!3",
-                    cover: "./img/7.jpg",
-                    source: "./mp3/7.mp3",
-                    url: "###",
-                    favorited: true
-                },
-                {
-                    name: "By My Side(Roxado Fmx)",
-                    singer: "REDDJ",
-                    cover: "./img/8.jpg",
-                    source: "./mp3/8.mp3",
-                    url: "###",
-                    favorited: false
-                },
-                {
-                    name: "Firestarter",
-                    singer: "Samantha Jade",
-                    cover: "./img/9.jpg",
-                    source: "./mp3/9.mp3",
-                    url: "###",
-                    favorited: false
-                },
-                {
-                    name: "Walking In The Sun (加快版DJ)",
-                    singer: "群星",
-                    cover: "./img/10.jpg",
-                    source: "./mp3/10.mp3",
-                    url: "###",
-                    favorited: true
-                },
-                {
-                    name: "Laserlight (DRM Vs Dayz Remix Edit)",
-                    singer: "Electro Driverz",
-                    cover: "./img/11.jpg",
-                    source: "./mp3/11.mp3",
-                    url: "###",
-                    favorited: false
-                },
-                {
-                    name: "I AM THE BEST",
-                    singer: "2NE1 (투애니 원)",
-                    cover: "./img/12.jpg",
-                    source: "./mp3/12.mp3",
-                    url: "###",
-                    favorited: false
-                }
+            tracks: [
+                { name: "How Do You Do", singer: "Befour", cover: "./img/1.jpg", source: "./mp3/1.mp3", favorited: false },
+                { name: "Dance now", singer: "Brothers", cover: "./img/2.jpg", source: "./mp3/2.mp3",
+                    favorited: true },
+                { name: "火花", singer: "高耀太", cover: "./img/3.jpg", source: "./mp3/3.mp3", favorited: false },
+                { name: "순정 (纯情)", singer: "코요태 (高耀太)", cover: "./img/4.jpg", source: "./mp3/4.mp3", favorited: false },
+                { name: "Smile.DK", singer: "Kissy, Kissy", cover: "./img/5.jpg", source: "./mp3/5.mp3",
+                    favorited: true},
+                { name: "Mr.Dj (Radio Edit)", singer: "DJ Hyo", cover: "./img/6.jpg", source: "./mp3/6.mp3", favorited: false },
+                { name: "My First Kiss", singer: "3OH!3", cover: "./img/7.jpg", source: "./mp3/7.mp3",
+                    favorited: true},
+                { name: "By My Side(Roxado Fmx)", singer: "REDDJ", cover: "./img/8.jpg", source: "./mp3/8.mp3", favorited: false },
+                { name: "Firestarter", singer: "Samantha Jade", cover: "./img/9.jpg", source: "./mp3/9.mp3", favorited: false },
+                { name: "Walking In The Sun (加快版DJ)", singer: "群星", cover: "./img/10.jpg", source: "./mp3/10.mp3",
+                    favorited: true},
+                { name: "Laserlight (DRM Vs Dayz Remix Edit)", singer: "Electro Driverz", cover: "./img/11.jpg", source: "./mp3/11.mp3", favorited: false },
+                { name: "I AM THE BEST", singer: "2NE1 (투애니 원)", cover: "./img/12.jpg", source: "./mp3/12.mp3", favorited: false }
             ],
             currentTrack: null,
             currentTrackIndex: 0,
-            transitionName: null
+            transitionName: null,
+            showList: false
         };
     },
     methods: {
@@ -203,6 +125,18 @@ new Vue({
             this.tracks[this.currentTrackIndex].favorited = !this.tracks[
                 this.currentTrackIndex
             ].favorited;
+        },
+        handlerShowList() {
+            this.showList = true;
+        },
+        playSong(data, i) {
+            this.currentTrackIndex = i
+            this.currentTrack = this.tracks[this.currentTrackIndex];
+            this.resetPlayer();
+            this.showList = false;
+
+            this.audio.play();
+            this.isTimerPlaying = true;
         }
     },
     created() {
